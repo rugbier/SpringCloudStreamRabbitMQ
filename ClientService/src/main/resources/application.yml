@@ -1,0 +1,25 @@
+server.port: 8083
+spring:
+  cloud:
+    stream:
+      bindings:
+        order:
+          destination: orders
+          binder: local_rabbit
+        email:
+          destination: emails
+          binder: local_rabbit
+#          producer:
+#            partitionKeyExpression: payload.priority
+#            partitionCount: 2
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /
